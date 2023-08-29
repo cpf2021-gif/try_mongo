@@ -5,13 +5,12 @@ import (
 	"net/http"
 	"time"
 
+	"try_mongo/adapter"
 	"try_mongo/global"
-	"try_mongo/model"
 	mongodb "try_mongo/mongo"
 	"try_mongo/setup"
 
 	"github.com/labstack/echo/v4"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 func main() {
@@ -30,9 +29,9 @@ func main() {
 		}
 	}()
 
-	// get collection
-	mdb := mongodb.NewMongoDb("bookdb")
-	mdb.SetCollection("mdfiles")
+	dataSource := mongodb.NewDataSource("bookdb")
+
+	mdController := adapter.NewMdDataController(dataSource)
 
 	// Echo instance
 	e := echo.New()
@@ -43,17 +42,7 @@ func main() {
 	})
 
 	routerGroupdata := e.Group("/data")
-	routerGroupdata.GET("/:filename", func(c echo.Context) error {
-		filename := c.Param("filename")
-		var mdfile model.MdData
-		err := mdb.FindOne(bson.D{{Key: "title", Value: filename}}, &mdfile)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, map[string]any{
-				"error": "not found",
-			})
-		}
-		return c.JSON(http.StatusOK, mdfile)
-	})
+	routerGroupdata.GET("/:filename", mdController.GetMdData)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
