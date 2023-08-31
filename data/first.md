@@ -1,6 +1,4 @@
-# 使用go存储md文件
-
-## 尝试使用mongodb存储md文件
+# 尝试使用mongodb存储md文件
 1. 使用mongo-driver连接mongodb
 ```go
     // connect to mongodb
