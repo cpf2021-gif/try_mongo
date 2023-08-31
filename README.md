@@ -4,7 +4,7 @@
 
 # Todo
 - [X] Connect MongoDB
-- [ ] Create a simple blog to render md file content
+- [X] Create a simple blog to render md file content
 - [ ] Create / Delete md file
 - [ ] Edit md file
 - [ ] Casbin Auth
