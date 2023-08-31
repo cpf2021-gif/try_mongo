@@ -1,21 +1,22 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import { getPost } from '../api/data'
 import { marked } from 'marked'
+import Layout from '../../layouts/Layout.astro';
 
 const { blog } = Astro.params;
 
-const response = await fetch(`http://localhost:1323/data/${blog}`)
+const response = await getPost(blog)
 const data = await response.json()
 
 const title = data.title
 const content = marked.parse(data.content)
 ---
+
 <Layout title={title}>
   <h1>{title}</h1>
   <article set:html={content} />
   <a href="/blog">Back to blog</a>
 </Layout>
-
 
 <style>
 	h1 {
@@ -27,4 +28,5 @@ const content = marked.parse(data.content)
 	a {
 		text-decoration: none;
 	}
+
 </style>
