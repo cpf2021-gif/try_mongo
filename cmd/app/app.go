@@ -11,6 +11,7 @@ import (
 	"try_mongo/setup"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -35,6 +36,9 @@ func main() {
 
 	// Echo instance
 	e := echo.New()
+
+	// Middleware
+	e.Use(middleware.Logger())
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {
