@@ -2,19 +2,17 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
-
+	"try_mongo/dao"
 	"try_mongo/global"
 	"try_mongo/model"
 	mongodb "try_mongo/mongo"
 	"try_mongo/setup"
 )
 
-func saveMdFile(dirPath string, db *mongodb.MongoDb) {
+func saveMdFile(dirPath string, mdDao dao.MdDataDao) {
 	filesInfo, err := os.ReadDir(dirPath)
 	if err != nil {
 		panic(err)
@@ -42,17 +40,19 @@ func saveMdFile(dirPath string, db *mongodb.MongoDb) {
 
 		// have old data, update
 		var oldmdfile model.MdData
-		err = db.FindOne(bson.D{{Key: "title", Value: file.Name()}}, &oldmdfile)
+		oldmdfile.Title = file.Name()
+
+		err = mdDao.FindOne(&oldmdfile)
 		if err == nil {
 			// update
 			if oldmdfile.Content != newmdfile.Content {
-				err = db.ReplaceOne(bson.D{{Key: "title", Value: file.Name()}}, newmdfile)
+				err = mdDao.UpdateOne(&newmdfile)
 				if err != nil {
 					panic(err)
 				}
 			}
 		} else {
-			err = db.AddOne(newmdfile)
+			err = mdDao.AddOne(&newmdfile)
 			if err != nil {
 				panic(err)
 			}
@@ -90,20 +90,12 @@ func main() {
 		 	}
 	*/
 
-	// 2.2 get collection
-	mdb := mongodb.NewMongoDb("bookdb")
-	mdb.SetCollection("mdfiles")
+	// 2. get collection
+	dataSource := mongodb.NewDataSource("bookdb")
+
+	mdDao := dataSource.MdDataDao()
 
 	// 3. add md file
-	saveMdFile(dirname, mdb)
+	saveMdFile(dirname, mdDao)
 
-	// 4. get md file
-	var mdData model.MdData
-	filter := bson.D{{Key: "title", Value: "first.md"}}
-	err = mdb.FindOne(filter, &mdData)
-
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(mdData.Content)
 }
