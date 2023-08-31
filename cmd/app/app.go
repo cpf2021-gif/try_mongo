@@ -47,6 +47,7 @@ func main() {
 
 	routerGroupdata := e.Group("/data")
 	routerGroupdata.GET("/:filename", mdController.GetMdData)
+	routerGroupdata.GET("/list", mdController.GetMdDatas)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

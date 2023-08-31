@@ -27,7 +27,6 @@ func (m *MdDataController) GetMdData(c echo.Context) error {
 
 	mdBao := m.dataSource.MdDataDao()
 
-	// TODO: Fix this error
 	err := mdBao.FindOne(&mdfile)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]any{
@@ -35,6 +34,22 @@ func (m *MdDataController) GetMdData(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusOK, mdfile)
+}
+
+func (m *MdDataController) GetMdDatas(c echo.Context) error {
+	filename := c.QueryParam("filename")
+
+	var mdfile model.MdData
+	mdfile.Title = filename
+
+	mdBao := m.dataSource.MdDataDao()
+	mdfiles, err := mdBao.FindMany(&mdfile)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": "not found",
+		})
+	}
+	return c.JSON(http.StatusOK, mdfiles)
 }
 
 func (m *MdDataController) AddMdData(c echo.Context) error {
