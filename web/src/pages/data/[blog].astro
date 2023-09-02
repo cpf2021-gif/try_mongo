@@ -1,7 +1,9 @@
 ---
 import { getPost } from '../api/data'
 import { marked } from 'marked'
+
 import Layout from '../../layouts/Layout.astro';
+import Blog from '../../components/Blog.astro';
 
 const { blog } = Astro.params;
 
@@ -13,17 +15,11 @@ const content = marked.parse(data.content)
 ---
 
 <Layout title={title}>
-  <h1>{title}</h1>
-  <article set:html={content} />
+  <Blog content={content} />
   <a href="/blog">Back to blog</a>
 </Layout>
 
 <style>
-	h1 {
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
 
 	a {
 		text-decoration: none;
