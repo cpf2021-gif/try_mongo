@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import "easymde/dist/easymde.min.css";
 import 'github-markdown-css/github-markdown.css'
 ---
 
@@ -8,6 +9,5 @@ import 'github-markdown-css/github-markdown.css'
     <button class="alert">Delete</button>
 </Layout>
 
-<script is:inline src="https://cdn.jsdelivr.net/npm/simplemde/dist/simplemde.min.js"></script>
-
+<script is:inline src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 <script src="../scripts/edit.js"></script>

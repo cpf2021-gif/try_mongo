@@ -1,9 +1,15 @@
-const simplemde = new SimpleMDE({
+import EasyMDE from "easymde";
+import "highlight.js/styles/github.css";
+
+const simplemde = new EasyMDE({
     autoDownloadFontAwesome: true,
     autofocus: true,
     toolbar: ["preview"],
     shortcuts: {
         "togglePreview": "Alt-P",
+    },
+    renderingConfig: {
+        codeSyntaxHighlighting: true,
     }
 });
 
