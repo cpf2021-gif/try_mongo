@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import 'github-markdown-css/github-markdown.css'
+---
+
+<Layout title="edit">
+    <textarea></textarea>
+    <button class="alert">Delete</button>
+</Layout>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/simplemde/dist/simplemde.min.js"></script>
+
+<script src="../scripts/edit.js"></script>
