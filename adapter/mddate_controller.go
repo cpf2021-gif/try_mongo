@@ -59,7 +59,16 @@ func (m *MdDataController) AddMdData(c echo.Context) error {
 	}
 
 	mdBao := m.dataSource.MdDataDao()
-	err := mdBao.AddOne(&mdfile)
+
+	// check if exist
+	err := mdBao.FindOne(&mdfile)
+	if err == nil {
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": "already exists",
+		})
+	}
+
+	err = mdBao.AddOne(&mdfile)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]any{
 			"error": "add failed",
