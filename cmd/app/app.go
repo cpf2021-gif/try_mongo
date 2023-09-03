@@ -48,6 +48,9 @@ func main() {
 	routerGroupdata := e.Group("/data")
 	routerGroupdata.GET("/:filename", mdController.GetMdData)
 	routerGroupdata.GET("/list", mdController.GetMdDatas)
+	routerGroupdata.POST("/add", mdController.AddMdData)
+	routerGroupdata.POST("/update", mdController.UpdateMdData)
+	routerGroupdata.POST("/delete", mdController.DeleteMdData)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
