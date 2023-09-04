@@ -39,6 +39,7 @@ func main() {
 
 	// Middleware
 	e.Use(middleware.Logger())
+	e.Use(middleware.CORS())
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {
