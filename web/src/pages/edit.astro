@@ -1,12 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import "easymde/dist/easymde.min.css";
-import 'github-markdown-css/github-markdown.css'
+import BlogEdit from "../components/BlogEdit.astro";
 ---
 
 <Layout title="edit">
-    <textarea></textarea>
-    <button class="alert">Delete</button>
+    <BlogEdit />
 </Layout>
 
 <script is:inline src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>

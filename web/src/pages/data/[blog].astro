@@ -19,9 +19,29 @@ const content = marked.parse(data.content)
 ---
 
 <Layout title={title}>
+  <button class="edit">edit</button>
   <Blog content={content} />
   <a href="/blog">Back to blog</a>
 </Layout>
+
+<script>
+	import { getPost } from '../api/data'
+	let pageTitle = document.title
+	const response = await getPost(pageTitle)
+	const data = await response.json()
+
+	// 存储文件内容
+	localStorage.setItem('md-content', data.content)
+
+	if (!data.error) {
+		document.querySelector('.edit').addEventListener('click', () => {
+			// 存储文件名
+			localStorage.setItem('md-title', pageTitle)
+			window.location.href = `/edit`
+		})
+	}
+	
+</script>
 
 <style>
 

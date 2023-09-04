@@ -1,0 +1,43 @@
+---
+import "easymde/dist/easymde.min.css";
+import 'github-markdown-css/github-markdown.css'
+---
+<div class="nav">
+    <input type="text" class="title-input" placeholder="请输入文章标题">
+    <div class="spacer"></div>
+    <button class="alert">Delete</button>
+    <button class="save">Save</button>
+    <button class="create">Create</button>
+</div>
+<textarea ></textarea>
+
+<script is:inline src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script src="../scripts/edit.js"></script>
+
+<style>
+    .nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .title-input {
+        font-size: 36px; /* 与 h1 相同或你喜欢的大小 */
+        font-family: Arial, sans-serif; /* 与 h1 相同或你喜欢的字体 */
+        font-weight: 600;
+        color: #333; /* 与 h1 相同或你喜欢的颜色 */
+        border: none; /* 去掉输入框的边框 */
+        background-color: transparent; /* 使输入框背景透明 */
+        outline: none; /* 去掉输入框的默认外边框 */
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    button {
+        margin-left: 10px;
+    }
+
+</style>
