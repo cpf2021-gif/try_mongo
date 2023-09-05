@@ -3,11 +3,21 @@ import "easymde/dist/easymde.min.css";
 import 'github-markdown-css/github-markdown.css'
 ---
 <div class="nav">
-    <input type="text" class="title-input" placeholder="请输入文章标题">
+    <input type="text" maxlength="15" class="title-input" placeholder="请输入文章标题">
     <div class="spacer"></div>
-    <button class="alert">Delete</button>
+    <button class="back">Go Back</button>
+    <button class="clear">Clear</button>
     <button class="save">Save</button>
-    <button class="create">Create</button>
+    <form class="create-form" action="/api/create" method="post">
+        <input type="hidden" name="title" value="">
+        <input type="hidden" name="content" value="">
+        <button class="create">Create</button>
+    </form>
+    <form class="update-form" action="/api/update" method="post">
+        <input type="hidden" name="title" value="">
+        <input type="hidden" name="content" value="">
+        <button class="update">Update</button>
+    </form>
 </div>
 <textarea ></textarea>
 
@@ -21,13 +31,13 @@ import 'github-markdown-css/github-markdown.css'
     }
 
     .title-input {
-        font-size: 36px; /* 与 h1 相同或你喜欢的大小 */
-        font-family: Arial, sans-serif; /* 与 h1 相同或你喜欢的字体 */
+        font-size: 36px;
+        font-family: Arial, sans-serif;
         font-weight: 600;
-        color: #333; /* 与 h1 相同或你喜欢的颜色 */
-        border: none; /* 去掉输入框的边框 */
-        background-color: transparent; /* 使输入框背景透明 */
-        outline: none; /* 去掉输入框的默认外边框 */
+        color: #333;
+        border: none;
+        background-color: transparent;
+        outline: none;
         flex: 0 0 auto;
         margin-right: 10px;
     }
