@@ -55,7 +55,9 @@ func (m *MdDataController) GetMdDatas(c echo.Context) error {
 func (m *MdDataController) AddMdData(c echo.Context) error {
 	var mdfile model.MdData
 	if err := c.Bind(&mdfile); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": err.Error(),
+		})
 	}
 
 	mdBao := m.dataSource.MdDataDao()
@@ -80,7 +82,9 @@ func (m *MdDataController) AddMdData(c echo.Context) error {
 func (m *MdDataController) UpdateMdData(c echo.Context) error {
 	var mdfile model.MdData
 	if err := c.Bind(&mdfile); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": err.Error(),
+		})
 	}
 
 	mdBao := m.dataSource.MdDataDao()
@@ -96,7 +100,9 @@ func (m *MdDataController) UpdateMdData(c echo.Context) error {
 func (m *MdDataController) DeleteMdData(c echo.Context) error {
 	var mdfile model.MdData
 	if err := c.Bind(&mdfile); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": err.Error(),
+		})
 	}
 
 	mdBao := m.dataSource.MdDataDao()
