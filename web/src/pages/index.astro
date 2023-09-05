@@ -2,10 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Welcome to Astro.">
-	<h1>Welcome to Astro</h1>
+<Layout title="Welcome to The Ordinary World">
+	<h1>Welcome to The Ordinary World</h1>
 	<div class="container">
 		<a href="/blog">Go to the blog</a>
+		<a href="/edit">Create a new md</a>
 	</div>
 </Layout>
 
@@ -19,10 +20,13 @@ import Layout from '../layouts/Layout.astro';
 	.container {
 		display: flex;
 		justify-content: center;
+		flex-direction: column;
+		align-items: center;
 	}
-
 
 	a {
 		text-decoration: none;
+		margin: 10px 0;
 	}
+
 </style>

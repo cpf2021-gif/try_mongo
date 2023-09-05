@@ -1,0 +1,53 @@
+---
+import "easymde/dist/easymde.min.css";
+import 'github-markdown-css/github-markdown.css'
+---
+<div class="nav">
+    <input type="text" maxlength="15" class="title-input" placeholder="请输入文章标题">
+    <div class="spacer"></div>
+    <button class="back">Go Back</button>
+    <button class="clear">Clear</button>
+    <button class="save">Save</button>
+    <form class="create-form" action="/api/create" method="post">
+        <input type="hidden" name="title" value="">
+        <input type="hidden" name="content" value="">
+        <button class="create">Create</button>
+    </form>
+    <form class="update-form" action="/api/update" method="post">
+        <input type="hidden" name="title" value="">
+        <input type="hidden" name="content" value="">
+        <button class="update">Update</button>
+    </form>
+</div>
+<textarea ></textarea>
+
+<script is:inline src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script src="../scripts/edit.js"></script>
+
+<style>
+    .nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .title-input {
+        font-size: 36px;
+        font-family: Arial, sans-serif;
+        font-weight: 600;
+        color: #333;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    button {
+        margin-left: 10px;
+    }
+
+</style>

@@ -1,11 +1,14 @@
 ---
+import { getPosts } from './api/data'
 import Layout from '../layouts/Layout.astro';
-const response = await fetch("http://localhost:1323/data/list")
+
+const response = await getPosts()
 const allPosts = await response.json()
 ---
 
 <Layout title="My blog Content">
 	<h1>blog list</h1>
+
 	<div class="container">
 		<ul>
 			{allPosts.map((post) => (
@@ -14,8 +17,8 @@ const allPosts = await response.json()
 				</li>
 			))}
 		</ul>	
-
 	</div>
+
 	<div class="container">
 		<a href="/">Back to home</a>
 	</div>
@@ -52,4 +55,5 @@ const allPosts = await response.json()
 	a {
 		text-decoration: none;
 	}
+
 </style>

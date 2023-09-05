@@ -1,0 +1,8 @@
+---
+import 'github-markdown-css/github-markdown.css'
+
+const { content } = Astro.props
+---
+
+<script src="../../src/scripts/prism.js"></script>
+<article class="markdown-body" set:html={content} />

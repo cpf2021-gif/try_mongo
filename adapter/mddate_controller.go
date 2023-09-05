@@ -55,11 +55,22 @@ func (m *MdDataController) GetMdDatas(c echo.Context) error {
 func (m *MdDataController) AddMdData(c echo.Context) error {
 	var mdfile model.MdData
 	if err := c.Bind(&mdfile); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": err.Error(),
+		})
 	}
 
 	mdBao := m.dataSource.MdDataDao()
-	err := mdBao.AddOne(&mdfile)
+
+	// check if exist
+	err := mdBao.FindOne(&mdfile)
+	if err == nil {
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": "already exists",
+		})
+	}
+
+	err = mdBao.AddOne(&mdfile)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]any{
 			"error": "add failed",
@@ -71,7 +82,9 @@ func (m *MdDataController) AddMdData(c echo.Context) error {
 func (m *MdDataController) UpdateMdData(c echo.Context) error {
 	var mdfile model.MdData
 	if err := c.Bind(&mdfile); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": err.Error(),
+		})
 	}
 
 	mdBao := m.dataSource.MdDataDao()
@@ -87,7 +100,9 @@ func (m *MdDataController) UpdateMdData(c echo.Context) error {
 func (m *MdDataController) DeleteMdData(c echo.Context) error {
 	var mdfile model.MdData
 	if err := c.Bind(&mdfile); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, map[string]any{
+			"error": err.Error(),
+		})
 	}
 
 	mdBao := m.dataSource.MdDataDao()
