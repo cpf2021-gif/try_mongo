@@ -1,29 +1,26 @@
 export const POST = async ({ request, redirect }) => {
     // get form data
     const formdata = await request.formData();
-    const title = formdata.get("title");
+    const id = formdata.get("id");
 
     // Check if the title is missing
-    if (!title) {
+    if (!id) {
         return new Response("Missing title", {
             status: 400,
         });
     }
 
     // Send the data to the API
-    const response = await fetch("http://localhost:1323/data/delete", {
+    const response = await fetch(`http://localhost:8000/blogs/delete/id/${id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            title: title,
-        }),
     })
 
     // Check the response
     const responseJson = await response.json();
-    if (responseJson.error) {
+    if (!responseJson.ok) {
         return new Response("title not exists", {
             status: 400,
         });

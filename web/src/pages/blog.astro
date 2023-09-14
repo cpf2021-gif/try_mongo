@@ -11,11 +11,16 @@ const allPosts = await response.json()
 
 	<div class="container">
 		<ul>
-			{allPosts.map((post) => (
+			{
+				allPosts ? (
+				allPosts.map((post) => (
 				<li class="list">
-					<a href={`/data/${post.title}`}>{post.title}</a>
+					<a href={`/data/${post.id}`}>{post.title}</a>
 				</li>
-			))}
+				))	
+				) : 
+				<p>暂时没有内容</p>
+			}
 		</ul>	
 	</div>
 

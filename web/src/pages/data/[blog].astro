@@ -10,7 +10,7 @@ const { blog } = Astro.params;
 const response = await getPost(blog)
 const data = await response.json()
 
-if (data.error) {
+if (!data.id) {
 	return Astro.redirect('/404')
 }
 
@@ -22,7 +22,7 @@ const content = marked.parse(data.content)
 	<div class="nav">
 		<button class="edit">edit</button>
 		<form class="delete-form" action="/api/delete" method="post">
-			<input type="hidden" name="title" value="">
+			<input type="hidden" name="id" value="">
 			<button class="delete">delete</button>
 		</form>
 	</div>

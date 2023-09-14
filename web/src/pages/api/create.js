@@ -11,7 +11,7 @@ export const POST = async ({ request, redirect }) => {
         });
     }
     // Send the data to the API
-    const response = await fetch("http://localhost:1323/data/add", {
+    const response = await fetch("http://localhost:8000/blogs", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const POST = async ({ request, redirect }) => {
     // Check the response
     const responseJson = await response.json();
 
-    if (responseJson.error) {
+    if (!responseJson.ok) {
         return new Response("title already exists", {
             status: 400,
         });

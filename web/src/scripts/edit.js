@@ -54,6 +54,8 @@ saveButton.addEventListener('click', () => {
 const createButton = document.querySelector('.create');
 createButton.addEventListener('click', () => {
     save();
+    localStorage.removeItem('md-id');
+
     const form = document.querySelector('.create-form');
 
     form.querySelector('input[name="title"]').value = titleInput.value;
@@ -68,8 +70,11 @@ updateButton.addEventListener('click', () => {
     save();
     const form = document.querySelector('.update-form');
 
+    let id = localStorage.getItem('md-id');
+
     form.querySelector('input[name="title"]').value = titleInput.value;
     form.querySelector('input[name="content"]').value = simplemde.value();
+    form.querySelector('input[name="id"]').value = id;
 
     form.submit();
 });

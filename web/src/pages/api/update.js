@@ -1,19 +1,20 @@
-export const PUT = async ({ request, redirect }) => {
+export const POST = async ({ request, redirect }) => {
     // get form data
     const formdata = await request.formData();
     const title = formdata.get("title");
     const content = formdata.get("content");
+    const id = formdata.get("id");
 
     // Check if the title or content is missing
-    if (!title || !content) {
+    if (!title || !content || !id) {
         return new Response("Missing title or content", {
             status: 400,
         });
     }
 
     // Send the data to the API
-    const response = await fetch("http://localhost:1323/data/update", {
-        method: "PUT",
+    const response = await fetch(`http://localhost:8000/blogs/update/id/${id}`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
@@ -26,7 +27,7 @@ export const PUT = async ({ request, redirect }) => {
     // Check the response
     const responseJson = await response.json();
 
-    if (responseJson.error) {
+    if (!responseJson.ok) {
         return new Response("title already exists", {
             status: 400,
         });
